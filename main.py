@@ -4,6 +4,10 @@
 # cidade
 # telefone
 
+
+
+
+
 #aqui nessa classe criamos os atributos 
 class crudUsuario:
     def __init__(self,user,idade,cidade,telefone):
@@ -24,22 +28,37 @@ class gerenciar:
         for cliente in self.clientes:
             print( "Nome:",cliente.user,"idade:", cliente.idade, "cidade:",cliente.cidade, "telefone:", cliente.telefone)
 
-    def update(self, indice, new):
-        self.clientes[indice].user = new
-        self.clientes [indice].idade = new
-        self.clientes [indice].cidade = new
-        self.clientes [indice].telefone = new
+    #Aqui dentro do meu update, aprendi a utilizar o método Kwargs (**dados), onde eu posso passar a quantidade de váriaveis em forma de um dicionário 
+    def update(self, indice, **dados):
+        cliente = self.clientes[indice]
+        for chave, valor in dados.items():
+            setattr(cliente,chave, valor)
 
     def delete(self, indice):
-        del self.clientes[indice]
+        #caso o meu cliente for removido imprimir a mensagem "cliente removido com sucesso!" caso contrário imprimir "indice inválido!"
+        if indice <=3:
+            self.clientes.pop(indice)
+            print("Cliente removido com sucesso!")
+        else: 
+            print("Indice inválido")
 
 
 crud = gerenciar()
 
-c1 = crudUsuario("Caique", 21, "sp", "4352325")
-crud.criar(c1)
+while True:
+    try:
+        cadastro = cadastro = int(input("Seja Bem-Vindo(a) ao nosso sistema de registro!\n =================================================\n Selecione uma das seguintes opções pelo número:\n1- Criar Usuário\n2- Ver Usuário Criado\n3- Atualizar Usuário\n4- Deletar Usuário\nSelecione uma opção:"))
+        break
+    except ValueError:
+        print("ops... algo deu errado. Digite um número!")
+    
+    
+    
+    
 
-crud.ler()
+
+
+
 
 
 
